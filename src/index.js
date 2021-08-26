@@ -13,8 +13,11 @@ app.get("/repositories", (request, response) => {
 });
 
 app.post("/repositories", (request, response) => {
+
+    // dados da requisicao
     const { title, url, techs } = request.body
 
+    // criando objeto que sera cadastrado
     const repository = {
         id: uuid(),
         title,
@@ -23,7 +26,9 @@ app.post("/repositories", (request, response) => {
         likes: 0
     };
 
-    return response.json(repository);
+    // adicionando novo repositorio
+    repositories.push(repository);
+    return response.status(201).json(repository);
 });
 
 app.put("/repositories/:id", (request, response) => {
