@@ -60,15 +60,19 @@ app.put("/repositories/:id", (request, response) => {
     return response.json(repository);
 });
 
+// deletar repositorio
 app.delete("/repositories/:id", (request, response) => {
+
+    // dados da requisicao
     const { id } = request.params;
 
+    // verifica se repositorio existe
     repositoryIndex = repositories.findIndex(repository => repository.id === id);
-
-    if (repositoryIndex > 0) {
+    if (repositoryIndex < 0) {
         return response.status(404).json({ error: "Repository not found" });
     }
 
+    // remove repositorio
     repositories.splice(repositoryIndex, 1);
 
     return response.status(204).send();
