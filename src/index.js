@@ -78,18 +78,22 @@ app.delete("/repositories/:id", (request, response) => {
     return response.status(204).send();
 });
 
+// para adicionar likes ao repositorio
 app.post("/repositories/:id/like", (request, response) => {
+
+    // dados da requisição
     const { id } = request.params;
 
+    // verifica se repositório existe
     repositoryIndex = repositories.findIndex(repository => repository.id === id);
-
     if (repositoryIndex < 0) {
         return response.status(404).json({ error: "Repository not found" });
     }
 
-    const likes = ++repositories[repositoryIndex].likes;
+    // incrementando like
+    repositories[repositoryIndex].likes++;
 
-    return response.json('likes');
+    return response.json({ message: "Like add" });
 });
 
 module.exports = app;
